@@ -91,4 +91,32 @@ public class Notebook {
         index--;
         System.out.println(getNotes().get(index));
     }
+    public void removeANote(int index) {
+        index--;
+        ArrayList<Note> notes = getNotes();
+        notes.remove(index);
+        FileOutputStream fout = null;
+        ObjectOutputStream out = null;
+        try {
+            fout = new FileOutputStream(notebookFileName);
+            out = new ObjectOutputStream(fout);
+            for (int i = 0; i < notes.size(); i++) {
+                out.writeObject(notes.get(i));
+            }
+            out.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fout != null && out != null) {
+                try {
+                    fout.close();
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

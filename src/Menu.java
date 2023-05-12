@@ -26,6 +26,7 @@ public class Menu {
             addPage(notebook);
             return;
         } else if (whatToDo == 2) {
+            removePage(notebook);
             return;
         } else if (whatToDo == 3) {
             viewPage(notebook);
@@ -36,6 +37,7 @@ public class Menu {
             System.exit(0);
         }
     }
+
     public static void addPage(Notebook notebook) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the title. (You can Enter $ to go back to the first page.)");
@@ -61,9 +63,10 @@ public class Menu {
         firstPage(notebook);
         return;
     }
+
     public static void viewPage(Notebook notebook) {
         Scanner scanner = new Scanner(System.in);
-        if(notebook.getNotes().size()==0){
+        if (notebook.getNotes().size() == 0) {
             System.out.println("There's no note yet! Press Enter to go back to the first page.");
             scanner.nextLine();
             firstPage(notebook);
@@ -86,6 +89,37 @@ public class Menu {
         }
         notebook.viewANote(index);
         System.out.println("Press Enter to go back to the first page");
+        scanner.nextLine();
+        scanner.nextLine();
+        firstPage(notebook);
+        return;
+    }
+
+    public static void removePage(Notebook notebook) {
+        Scanner scanner = new Scanner(System.in);
+        if (notebook.getNotes().size() == 0) {
+            System.out.println("There's no note for you to remove! Press Enter to go back to the first page.");
+            scanner.nextLine();
+            firstPage(notebook);
+            return;
+        }
+        notebook.viewTitles();
+        System.out.println("Choose the note you want to remove.");
+        int index = 0;
+        try {
+            index = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Enter a number. Try again.");
+            viewPage(notebook);
+            return;
+        }
+        if (index < 1 || index > notebook.getNotes().size()) {
+            System.out.println("Enter a number from the list. Try again");
+            viewPage(notebook);
+            return;
+        }
+        notebook.removeANote(index);
+        System.out.println("The note was removed successfully! Press Enter to go back to the first page");
         scanner.nextLine();
         scanner.nextLine();
         firstPage(notebook);
