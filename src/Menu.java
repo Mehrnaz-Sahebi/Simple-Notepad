@@ -28,6 +28,7 @@ public class Menu {
         } else if (whatToDo == 2) {
             return;
         } else if (whatToDo == 3) {
+            viewPage(notebook);
             return;
         } else if (whatToDo == 4) {
             return;
@@ -56,6 +57,36 @@ public class Menu {
         }
         notebook.add(title, text);
         System.out.println("Your note has been added. Press Enter to go back to the first page.");
+        scanner.nextLine();
+        firstPage(notebook);
+        return;
+    }
+    public static void viewPage(Notebook notebook) {
+        Scanner scanner = new Scanner(System.in);
+        if(notebook.getNotes().size()==0){
+            System.out.println("There's no note yet! Press Enter to go back to the first page.");
+            scanner.nextLine();
+            firstPage(notebook);
+            return;
+        }
+        notebook.viewTitles();
+        System.out.println("Choose the note you want to view.");
+        int index = 0;
+        try {
+            index = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Enter a number. Try again.");
+            viewPage(notebook);
+            return;
+        }
+        if (index < 1 || index > notebook.getNotes().size()) {
+            System.out.println("Enter a number from the list. Try again");
+            viewPage(notebook);
+            return;
+        }
+        notebook.viewANote(index);
+        System.out.println("Press Enter to go back to the first page");
+        scanner.nextLine();
         scanner.nextLine();
         firstPage(notebook);
         return;

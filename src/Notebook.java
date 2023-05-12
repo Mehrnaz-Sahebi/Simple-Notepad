@@ -82,4 +82,13 @@ public class Notebook {
             e.printStackTrace();
         }
     }
+    public void viewTitles() {
+        for (int i = 0; i < getNotes().size(); i++) {
+            System.out.println(i + 1 + ". " + getNotes().get(i).getTitle());
+        }
+    }
+    public void viewANote(int index) {
+        index--;
+        System.out.println(getNotes().get(index));
+    }
 }
