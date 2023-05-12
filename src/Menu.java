@@ -23,6 +23,7 @@ public class Menu {
             firstPage(notebook);
             return;
         } else if (whatToDo == 1) {
+            addPage(notebook);
             return;
         } else if (whatToDo == 2) {
             return;
@@ -33,5 +34,30 @@ public class Menu {
         } else if (whatToDo == 5) {
             System.exit(0);
         }
+    }
+    public static void addPage(Notebook notebook) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the title. (You can Enter $ to go back to the first page.)");
+        String title = scanner.nextLine();
+        if (title.equals("$")) {
+            firstPage(notebook);
+            return;
+        }
+        if (notebook.doesNoteExist(title)) {
+            System.out.println("A note with this title already exists. Try again.");
+            addPage(notebook);
+            return;
+        }
+        System.out.println("Enter the note. (You can Enter $ to go back to the first page.)");
+        String text = scanner.nextLine();
+        if (text.equals("$")) {
+            firstPage(notebook);
+            return;
+        }
+        notebook.add(title, text);
+        System.out.println("Your note has been added. Press Enter to go back to the first page.");
+        scanner.nextLine();
+        firstPage(notebook);
+        return;
     }
 }
