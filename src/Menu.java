@@ -32,6 +32,7 @@ public class Menu {
             viewPage(notebook);
             return;
         } else if (whatToDo == 4) {
+            exportPage(notebook);
             return;
         } else if (whatToDo == 5) {
             System.exit(0);
@@ -120,6 +121,36 @@ public class Menu {
         }
         notebook.removeANote(index);
         System.out.println("The note was removed successfully! Press Enter to go back to the first page");
+        scanner.nextLine();
+        scanner.nextLine();
+        firstPage(notebook);
+        return;
+    }
+    public static void exportPage(Notebook notebook){
+        Scanner scanner = new Scanner(System.in);
+        if(notebook.getNotes().size()==0){
+            System.out.println("There's no note for you to export! Press Enter to go back to the first page.");
+            scanner.nextLine();
+            firstPage(notebook);
+            return;
+        }
+        notebook.viewTitles();
+        System.out.println("Choose the note you want to export.");
+        int index = 0;
+        try {
+            index = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Enter a number. Try again.");
+            viewPage(notebook);
+            return;
+        }
+        if (index < 1 || index > notebook.getNotes().size()) {
+            System.out.println("Enter a number from the list. Try again");
+            viewPage(notebook);
+            return;
+        }
+        notebook.exportANote(index);
+        System.out.println("The note was exported successfully! Press Enter to go back to the first page");
         scanner.nextLine();
         scanner.nextLine();
         firstPage(notebook);

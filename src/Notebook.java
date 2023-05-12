@@ -119,4 +119,15 @@ public class Notebook {
             }
         }
     }
+    public void exportANote(int index){
+        index--;
+        Note noteToExport = getNotes().get(index);
+        try {
+            FileWriter fileWriter = new FileWriter("./export/"+noteToExport.getTitle()+".txt");
+            fileWriter.write(noteToExport.toString());
+            fileWriter.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }
